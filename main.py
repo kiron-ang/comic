@@ -101,7 +101,7 @@ def create_pdf(filename):
     draw_text(c, sentences[0], font, font_size, width * 0.25, y_middle + middle_h, y_top, blue)
 
     # Panel 2: Top-Right
-    draw_svg(c, "2.svg", width / 2, y_middle + middle_h, panel_w, top_h)
+    draw_svg(c, "2.svg", width / 2, y_middle + middle_h - 20, panel_w, top_h)
     draw_text(c, sentences[1], font, font_size, width * 0.75, y_middle + middle_h, y_top, blue)
 
     # Panel 3: Middle

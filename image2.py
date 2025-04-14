@@ -41,6 +41,10 @@ for i in range(6):
     svg.append(f'<line x1="{line_start_x}" y1="{line_y}" x2="{line_end_x}" y2="{line_y}" stroke="{blue}" stroke-width="3" />')
     line_y += line_spacing
 
+
+svg.append(f'<text x="10" y="{height}" font-size="30" fill="#0056a9" font-family="Courier, monospace">This data comic was created by Kiron Ang!</text>')
+
+
 # End SVG
 svg.append('</svg>')
 

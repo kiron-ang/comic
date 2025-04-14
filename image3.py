@@ -1,6 +1,7 @@
 # image3.py
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
 
 # Use Courier font globally
 plt.rcParams['font.family'] = 'monospace'
