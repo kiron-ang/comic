@@ -63,9 +63,6 @@ def create_pdf(filename):
         tw = width * 0.9 if index == 2 else width * 0.45
         lines = simpleSplit(sent, font, size, tw)
 
-        if lh * len(lines) > section_h - 24:
-            print(f"⚠️ Warning: Sentence {5 - index} may overflow its box.")
-
         # Calculate bounding box for hyperlink if needed.
         max_width = min(tw, max(c.stringWidth(line, font, size) for line in lines))
         left_x = x_center - max_width / 2
@@ -85,6 +82,7 @@ def create_pdf(filename):
 
     c.showPage()
     c.save()
+    print("Success:", filename)
 
 if __name__ == "__main__":
     create_pdf("comic.pdf")
