@@ -40,7 +40,7 @@ plt.figure(figsize=(10, 6))
 bars = plt.barh(labels, df_lowest["MMR"], color=blue)
 
 # Style
-plt.xlabel("MMR VACCINATION COVERAGE", fontsize=12, color=blue)
+plt.xlabel("PERCENTAGE OF SEVENTH GRADERS IN THE DISTRICT WITH THE MMR VACCINE", fontsize=12, color=blue)
 plt.xticks(color=blue, fontsize=10)
 plt.yticks(color=blue, fontsize=10)
 plt.xlim(0, 1)
@@ -58,6 +58,7 @@ ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 ax.spines['left'].set_visible(False)
 ax.tick_params(axis='both', colors=blue)
+ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x * 100:.0f}%"))
 
 # Save to SVG
 plt.tight_layout()

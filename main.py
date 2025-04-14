@@ -116,7 +116,6 @@ def create_pdf(filename):
     draw_text(c, sentences[4], font, font_size, width * 0.75, y_bottom + bottom_h * 0.3, y_bottom + bottom_h, blue)
     draw_svg(c, "5.svg", width / 2, y_bottom, panel_w, bottom_h * 0.6, scale_factor=0.7)
 
-
     c.showPage()
     c.save()
     print("Success:", filename)
