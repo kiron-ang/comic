@@ -3,6 +3,8 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
 from reportlab.lib.utils import simpleSplit
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPDF
 
 def create_pdf(filename):
     c = canvas.Canvas(filename, pagesize=letter)
@@ -21,6 +23,24 @@ def create_pdf(filename):
     c.line(0, 2 * third, width, 2 * third)
     c.line(width / 2, 2 * third, width / 2, height)
     c.line(width / 2, 0, width / 2, third)
+
+    # Insert SVG into first panel (top-left panel)
+    drawing = svg2rlg("1.svg")
+
+    # Calculate scale to fit into the top-left panel
+    panel_width = width / 2
+    panel_height = third
+
+    scale_x = panel_width / drawing.width
+    scale_y = panel_height / drawing.height
+    scale = min(scale_x, scale_y) * 0.95  # scale down to 95%
+
+    drawing.scale(scale, scale)
+
+    svg_x = (panel_width - drawing.width * scale) / 2
+    svg_y = 2 * third + (panel_height - drawing.height * scale) / 2
+
+    renderPDF.draw(drawing, c, svg_x, svg_y - 10)
 
     # Read sentences from file and split on sentences ending with a period.
     with open("readme.txt", "r", encoding="utf-8") as f:
