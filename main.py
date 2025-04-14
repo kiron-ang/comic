@@ -8,74 +8,92 @@ def create_pdf(filename):
     c = canvas.Canvas(filename, pagesize=letter)
     width, height = letter
 
-    # Fill the page with a white background (#ffffff)
+    # Fill background
     c.setFillColor(HexColor("#ffffff"))
     c.rect(0, 0, width, height, fill=1, stroke=0)
 
-    # Draw four horizontal lines in color #d90d0d to split the page into 5 equal sections
+    # Line color and spacing
     line_color = HexColor("#d90d0d")
     c.setStrokeColor(line_color)
     c.setLineWidth(2)
-    for i in range(1, 5):
-        y = (height * i) / 5
-        c.line(0, y, width, y)
+    third_height = height / 3
 
-    # Read sentences from readme.txt (all sentences on one line)
+    # Horizontal lines
+    c.line(0, third_height, width, third_height)
+    c.line(0, 2 * third_height, width, 2 * third_height)
+
+    # Vertical lines (for top and bottom thirds)
+    c.line(width / 2, 2 * third_height, width / 2, height)  # top third
+    c.line(width / 2, 0, width / 2, third_height)           # bottom third
+
+    # Read sentences
     with open("readme.txt", "r", encoding="utf-8") as f:
         content = f.read().strip()
-    # Split sentences using a regex that looks for whitespace following a period.
     sentences = re.split(r'(?<=\.)\s+', content)
-    sentences.reverse()  # Reverse the order of sentences
 
-    # Set text color and font properties
+    # Set text appearance
     c.setFillColor(HexColor("#0056a9"))
     font_name = "Courier"
     font_size = 12
     c.setFont(font_name, font_size)
-
-    # Define the maximum width for the text (e.g., 90% of the page width) and the line height
-    max_text_width = width * 0.9
     line_height = font_size * 1.2
 
-    # Calculate the height of each section
-    section_height = height / 5
+    # Layout map: (x_center, y_bottom, y_top)
+    layout_map = [
+        (width * 0.25, 2 * third_height, height),     # Sentence 1
+        (width * 0.75, 2 * third_height, height),     # Sentence 2
+        (width / 2, third_height, 2 * third_height),  # Sentence 3
+        (width * 0.25, 0, third_height),              # Sentence 4
+        (width * 0.75, 0, third_height)               # Sentence 5
+    ]
 
-    # Process each sentence in its section
+    # Draw sentences
     for index, orig_sentence in enumerate(sentences):
-        # Attempt to extract a URL using a regex.
-        # This regex will match strings that begin with http/https and end at a whitespace or closing parenthesis.
+        if index >= 5:
+            break
+
+        x_center, y_bottom, y_top = layout_map[index]
+        section_height = y_top - y_bottom
+        padding_from_top = 12
+        start_y = y_top - padding_from_top - font_size
+
+        # Detect and strip URL
         match = re.search(r'\(?\bhttps?://\S+\b\)?', orig_sentence)
         url = None
         if match:
-            # Strip leading/trailing parentheses if they exist.
             url = match.group(0).strip("()")
-            # Remove the URL portion from the sentence so it doesn’t show up in the text.
             sentence = orig_sentence.replace(match.group(0), "").strip(" .") + "."
         else:
             sentence = orig_sentence
 
-        # Wrap the sentence into lines that do not exceed max_text_width.
-        wrapped_lines = simpleSplit(sentence, font_name, font_size, max_text_width)
+        # Determine max width based on section
+        if index == 2:  # Middle section (sentence 3)
+            text_width_limit = width * 0.9
+        else:
+            text_width_limit = width * 0.45
 
-        # Calculate the starting vertical position near the top of the section.
-        section_bottom = section_height * index
-        padding_from_top = 12  # Adjust this value to change the distance from the top edge of the section.
-        start_y = section_bottom + section_height - padding_from_top - font_size
+        wrapped_lines = simpleSplit(sentence, font_name, font_size, text_width_limit)
 
-        # For hyperlink annotation, determine the bounding rectangle of the text block.
-        max_line_width = max(c.stringWidth(line, font_name, font_size) for line in wrapped_lines)
-        left_x = width / 2 - max_line_width / 2
-        right_x = width / 2 + max_line_width / 2
-        top_y = start_y + font_size  # approximate ascent.
-        bottom_y = start_y - line_height * (len(wrapped_lines) - 1) - 2  # a small padding.
+        # Warn if the text may overflow vertically
+        required_height = line_height * len(wrapped_lines)
+        available_height = section_height - 24  # 12pt top & bottom padding
+        if required_height > available_height:
+            print(f"⚠️ Warning: Sentence {5 - index} may overflow its box.")
 
-        # Draw each wrapped line centered horizontally.
+        # Bounding box for optional hyperlink
+        max_line_width = min(text_width_limit, max(c.stringWidth(line, font_name, font_size) for line in wrapped_lines))
+        left_x = x_center - max_line_width / 2
+        right_x = x_center + max_line_width / 2
+        top_y = start_y + font_size
+        bottom_y = start_y - line_height * (len(wrapped_lines) - 1) - 2
+
+        # Draw text
         current_y = start_y
         for line in wrapped_lines:
-            c.drawCentredString(width / 2, current_y, line)
+            c.drawCentredString(x_center, current_y, line)
             current_y -= line_height
 
-        # If a URL was found, add a hyperlink annotation over the entire text block.
+        # Add hyperlink if present
         if url:
             c.linkURL(url, (left_x, bottom_y, right_x, top_y), relative=0)
 
@@ -84,4 +102,3 @@ def create_pdf(filename):
 
 if __name__ == "__main__":
     create_pdf("comic.pdf")
-
