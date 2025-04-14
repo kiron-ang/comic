@@ -105,12 +105,12 @@ def create_pdf(filename):
     draw_text(c, sentences[1], font, font_size, width * 0.75, y_middle + middle_h, y_top, blue)
 
     # Panel 3: Middle
-    draw_svg(c, "3.svg", 0, y_middle, width, middle_h, scale_factor=0.85)
+    draw_svg(c, "3.svg", 0, y_middle, width, middle_h, scale_factor=0.9)
     draw_text(c, sentences[2], font, font_size, width / 2, y_middle, y_middle + middle_h, blue)
 
     # Panel 4: Bottom-Left — draw text first, then image lower in panel
     draw_text(c, sentences[3], font, font_size, width * 0.25, y_bottom + bottom_h * 0.3, y_bottom + bottom_h, blue)
-    draw_svg(c, "4.svg", 0, y_bottom, panel_w, bottom_h * 0.7, scale_factor=0.95)
+    draw_svg(c, "4.svg", 0, y_bottom, panel_w, bottom_h * 0.7, scale_factor=0.7)
 
     # Panel 5: Bottom-Right — draw text first, then sad face SVG below
     draw_text(c, sentences[4], font, font_size, width * 0.75, y_bottom + bottom_h * 0.3, y_bottom + bottom_h, blue)
