@@ -14,7 +14,7 @@ def draw_svg(c, svg_path, x_panel, y_panel, panel_width, panel_height, scale_fac
     drawing.scale(scale, scale)
 
     svg_x = x_panel + (panel_width - drawing.width * scale) / 2
-    svg_y = y_panel + (panel_height - drawing.height * scale) / 2 - 15
+    svg_y = y_panel + (panel_height - drawing.height * scale) / 2 - 10
 
     renderPDF.draw(drawing, c, svg_x, svg_y)
 
@@ -97,7 +97,7 @@ def create_pdf(filename):
     c.setFillColor(blue)
 
     # Panel 1: Top-Left
-    draw_svg(c, "1.svg", 0, y_middle + middle_h, panel_w, top_h)
+    draw_svg(c, "1.svg", 0, y_middle + middle_h - 5, panel_w, top_h, scale_factor=0.95)
     draw_text(c, sentences[0], font, font_size, width * 0.25, y_middle + middle_h, y_top, blue)
 
     # Panel 2: Top-Right
@@ -108,9 +108,14 @@ def create_pdf(filename):
     draw_svg(c, "3.svg", 0, y_middle, width, middle_h, scale_factor=0.85)
     draw_text(c, sentences[2], font, font_size, width / 2, y_middle, y_middle + middle_h, blue)
 
-    # Panels 4 & 5 (Bottom)
-    draw_text(c, sentences[3], font, font_size, width * 0.25, y_bottom, bottom_h, blue)
-    draw_text(c, sentences[4], font, font_size, width * 0.75, y_bottom, bottom_h, blue)
+    # Panel 4: Bottom-Left — draw text first, then image lower in panel
+    draw_text(c, sentences[3], font, font_size, width * 0.25, y_bottom + bottom_h * 0.3, y_bottom + bottom_h, blue)
+    draw_svg(c, "4.svg", 0, y_bottom, panel_w, bottom_h * 0.7, scale_factor=0.95)
+
+    # Panel 5: Bottom-Right — draw text first, then sad face SVG below
+    draw_text(c, sentences[4], font, font_size, width * 0.75, y_bottom + bottom_h * 0.3, y_bottom + bottom_h, blue)
+    draw_svg(c, "5.svg", width / 2, y_bottom, panel_w, bottom_h * 0.6, scale_factor=0.7)
+
 
     c.showPage()
     c.save()
