@@ -2,7 +2,7 @@
 # Symbolic SVG of a computer monitor with a document and lines of data
 
 # SVG setup
-width, height = 800, 600
+width, height = 800, 500
 blue = "#0056a9"
 red = "#d90d0d"
 font = "Courier, monospace"
@@ -29,7 +29,7 @@ doc_x = monitor_x + 60
 doc_y = monitor_y + 40
 doc_w = monitor_w - 120
 doc_h = monitor_h - 80
-svg.append(f'<rect x="{doc_x}" y="{doc_y}" width="{doc_w}" height="{doc_h}" fill="none" stroke="{red}" stroke-width="3" />')
+svg.append(f'<rect x="{doc_x}" y="{doc_y}" width="{doc_w}" height="{doc_h}" fill="none" stroke="{blue}" stroke-width="3" />')
 
 # --- Data lines (inside document) ---
 line_start_x = doc_x + 20
@@ -40,9 +40,6 @@ line_spacing = 25
 for i in range(6):
     svg.append(f'<line x1="{line_start_x}" y1="{line_y}" x2="{line_end_x}" y2="{line_y}" stroke="{blue}" stroke-width="3" />')
     line_y += line_spacing
-
-# --- Label ---
-svg.append(f'<text x="{width/2}" y="{height - 30}" font-size="20" fill="{blue}" font-family="{font}" text-anchor="middle">ONLINE VACCINATION DATA</text>')
 
 # End SVG
 svg.append('</svg>')
