@@ -5,6 +5,9 @@ description = "Graphic Narrative & Data Visualization!"
 readme = "readme.txt"
 requires-python = ">=3.13"
 dependencies = [
+    "matplotlib>=3.10.1",
+    "openpyxl>=3.1.5",
+    "pandas>=2.2.3",
     "reportlab>=4.3.1",
     "svglib>=1.5.1",
 ]
