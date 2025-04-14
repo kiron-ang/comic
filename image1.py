@@ -22,11 +22,11 @@ for i in range(num_circles):
     # Ensure the circle stays within canvas bounds
     x = random.uniform(circle_radius, width - circle_radius)
     y = random.uniform(circle_radius, height - circle_radius)
-    
+
     # Randomly assign color based on infection_probability:
     # Red if the random value is lower than the probability, blue otherwise.
     color = "#d90d0d" if random.random() < infection_probability else "#0056a9"
-    
+
     # Append the circle element to the SVG elements list
     svg_elements.append(f'  <circle cx="{x:.2f}" cy="{y:.2f}" r="{circle_radius}" fill="{color}" />')
 

@@ -40,7 +40,7 @@ def create_pdf(filename):
     svg_x = (panel_width - drawing.width * scale) / 2
     svg_y = 2 * third + (panel_height - drawing.height * scale) / 2
 
-    renderPDF.draw(drawing, c, svg_x, svg_y - 10)
+    renderPDF.draw(drawing, c, svg_x, svg_y - 15)
 
     # Read sentences from file and split on sentences ending with a period.
     with open("readme.txt", "r", encoding="utf-8") as f:
