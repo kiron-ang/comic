@@ -1,7 +1,7 @@
 [project]
-name = "comic"
-version = "0.0.1"
-description = "Graphic Narrative & Data Visualization!"
+name = "infographic"
+version = "0.1.0"
+description = "https://github.com/kiron-ang/infographic"
 readme = "readme.txt"
 requires-python = ">=3.13"
 dependencies = [
