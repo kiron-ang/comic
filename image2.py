@@ -42,7 +42,7 @@ for i in range(6):
     line_y += line_spacing
 
 
-svg.append(f'<text x="0" y="{height}" font-size="30" fill="#0056a9" font-family="Courier, monospace">This infographic was created by Kiron Ang!</text>')
+svg.append(f'<text x="0" y="{height}" font-size="30" fill="#0056a9" font-family="Courier, monospace">(This infographic  was created by Kiron Ang!)</text>')
 
 
 # End SVG
