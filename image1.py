@@ -32,7 +32,7 @@ for i in range(num_circles):
 
 # Add the text label "WEST TEXAS" in the bottom left corner.
 # The coordinates here (x=10, y=height - 10) place the text with a small margin.
-svg_elements.append(f'<text x="10" y="{height - 10}" font-size="30" fill="#0056a9" font-family="Courier, monospace">WEST TEXAS</text>')
+svg_elements.append(f'<text x="0" y="{height}" font-size="30" fill="#0056a9" font-family="Courier, monospace">WEST TEXAS</text>')
 
 # Close the SVG tag
 svg_elements.append('</svg>')

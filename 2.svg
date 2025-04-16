@@ -9,5 +9,5 @@
 <line x1="280" y1="245" x2="520" y2="245" stroke="#0056a9" stroke-width="3" />
 <line x1="280" y1="270" x2="520" y2="270" stroke="#0056a9" stroke-width="3" />
 <line x1="280" y1="295" x2="520" y2="295" stroke="#0056a9" stroke-width="3" />
-<text x="10" y="500" font-size="30" fill="#0056a9" font-family="Courier, monospace">This data comic was created by Kiron Ang!</text>
+<text x="0" y="500" font-size="30" fill="#0056a9" font-family="Courier, monospace">This infographic was created by Kiron Ang!</text>
 </svg>

@@ -121,4 +121,4 @@ def create_pdf(filename):
     print("Success:", filename)
 
 if __name__ == "__main__":
-    create_pdf("comic.pdf")
+    create_pdf("infographic.pdf")

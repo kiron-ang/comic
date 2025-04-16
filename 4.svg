@@ -1,6 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="120">
 <rect width="400" height="120" fill="white" />
-<rect x="0" y="0" width="197" height="120" fill="#0056a9" />
-<rect x="203" y="0" width="197" height="120" fill="#d90d0d" />
-<polyline points="200.0,0 196.0,15 204.0,30 196.0,45 204.0,60 196.0,75 204.0,90 196.0,105 200.0,120" fill="none" stroke="white" stroke-width="5" />
+<text x="50%" y="50%" fill="#0056a9" font-size="100" font-family="Courier, monospace" dominant-baseline="middle" text-anchor="middle">$$$</text>
 </svg>
